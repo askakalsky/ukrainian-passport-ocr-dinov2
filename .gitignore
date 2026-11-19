@@ -1,0 +1,10 @@
+__pycache__/
+.venv/
+result.json
+.env
+/data/external_cache/dinov2/
+/private-weights/
+*.png
+*.jpg
+*.jpeg
+*.pdf
