@@ -14,6 +14,8 @@ The legacy generator reads an editable bitmap font and has a fallback font. A lo
 
 Fine-tuning experiments also used a reviewed synthetic snapshot of 19,542 distinct labels after 458 exclusions (15,636 train, 1,957 validation, 1,949 test). Checkpoint selection used real crops. On fixed fold 0 the selected tensors stayed equal to the archived reader. The validated preprocessing and weights must be used together.
 
+On the same nine labelled diagnostic photos, the archived reader and the selected fold 0 reader each read eight full strings and 71 of 72 characters correctly using DINOv2 and dot-span refinement. Both missed the same photo. For the selected reader, crop-margin selection alone gave six correct strings and adding dot-span refinement gave eight. The latter comparison holds the detector and reader fixed. These experiments do not establish the accuracy of the original YOLO pipeline on these photos.
+
 ## Exact match of all eight characters
 
 | Evaluation | Correct | Interpretation |

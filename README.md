@@ -1,6 +1,6 @@
 # Ukrainian passport perforation OCR
 
-This repository contains the inference code and the original Meta DINOv2 ViT-S/14 encoder weights. The task is to read two Cyrillic series letters and six digits from the perforated field of a Ukrainian internal passport booklet. Full-page OCR requires two additional project-specific checkpoints. Their commercial distribution status is unresolved.
+This private repository contains the inference code and all three weight files for the fixed fold 0 passport OCR candidate. It reads two Cyrillic series letters and six digits from the perforated field of a Ukrainian internal passport booklet. See [MODEL_CARD.md](MODEL_CARD.md) for training and validation evidence and [PRIVATE-CANDIDATE.md](PRIVATE-CANDIDATE.md) for the status of the project-specific checkpoints.
 
 ## Files and terms
 
@@ -9,7 +9,7 @@ This repository contains the inference code and the original Meta DINOv2 ViT-S/1
 | Project inference code and documentation | MIT. The original repository maintainer `askakalsky` set `license: mit` in commit `1f09f27` on April 14, 2026. Retain the included LICENSE when redistributing. |
 | `data/external_cache/dinov2_vits14_pretrain.pth` | Unmodified DINOv2 ViT-S/14 encoder, Meta Platforms, Inc. and affiliates. Apache-2.0. License included in `licenses/DINOv2-Apache-2.0.txt`. SHA-256 `b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9`. |
 | Runtime dependencies | Installed separately. The requirements file identifies the direct Python dependencies. Review the exact wheels and their bundled native libraries if distributing a runtime. |
-| Local detector head and CRNN | The reference hashes and evidence gaps are in MODEL_CARD.md. The external bundle contains only the base encoder weights. |
+| Local detector head and CRNN | Included under `private-weights/` for internal evaluation. The reference hashes and evidence gaps are in MODEL_CARD.md. The separate `company-handoff` branch contains the inference code and base encoder. |
 
 The encoder publisher identifies the ordinary DINOv2 models and their terms in the [pinned upstream README](https://github.com/facebookresearch/dinov2/tree/7764ea0f912e53c92e82eb78a2a1631e92725fc8#license). The [original checkpoint](https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth) can also be obtained directly.
 
@@ -30,7 +30,7 @@ To test the encoder alone, run the following from the same directory.
 python -c "import torch; from src.localization.dinov2 import load_encoder; print(type(load_encoder(torch.device('cpu'))).__name__)"
 ```
 
-With a compatible, authorized detector head and reader, run
+To read an authorized local image with the included detector head and CRNN, run
 
 ```shell
 python -m predict page.png --detector private-weights/detector.pth --reader private-weights/reader.pth --output result.json
